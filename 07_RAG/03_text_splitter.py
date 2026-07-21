@@ -1,0 +1,23 @@
+
+"""
+Splitting documents into chunks.
+"""
+
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+from langchain_community.document_loaders import PyPDFLoader
+
+loader = PyPDFLoader("data/langchain.pdf")
+
+documents = loader.load()
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+)
+
+chunks = splitter.split_documents(documents)
+
+print(len(chunks))
+
+print(chunks[0].page_content)
